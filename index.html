@@ -5,25 +5,27 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Happy Birthday Achu</title>
   <style>
-    body {
+    html, body {
       margin: 0; padding: 0;
       background: linear-gradient(to bottom right, #ffe0e6, #fff0f5);
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      display: flex; flex-direction: column; align-items: center;
-      justify-content: center; min-height: 100vh; overflow: hidden;
+      min-height: 100vh; overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
     }
     .cake-container {
       animation: dropCake 2s ease-out forwards;
       transform: translateY(-100%);
       margin-bottom: 20px;
+      max-width: 90vw;
     }
     @keyframes dropCake {
-      to {
-        transform: translateY(0);
-      }
+      to { transform: translateY(0); }
     }
     .cake {
-      width: 300px;
+      width: 100%; max-width: 300px;
     }
     .cake img {
       width: 100%;
@@ -36,8 +38,9 @@
       50% { transform: translateY(-15px); }
     }
     h1 {
-      color: #d6336c; font-size: 2.8rem;
+      color: #d6336c; font-size: 2.4rem;
       margin: 10px 0 5px;
+      text-align: center;
     }
     .heart {
       display: inline-block; color: #ff3366;
@@ -48,8 +51,21 @@
       50% { transform: scale(1.3); }
     }
     .message {
-      color: #333; max-width: 500px; text-align: center;
-      font-size: 1.1rem; padding: 0 20px;
+      color: #333; max-width: 90vw;
+      text-align: center;
+      font-size: 1rem; padding: 0 20px;
+    }
+    .firework {
+      position: absolute;
+      width: 5px; height: 5px;
+      background-color: #ff4081;
+      border-radius: 50%;
+      animation: explode 1s ease-out forwards;
+      pointer-events: none;
+    }
+    @keyframes explode {
+      0% { transform: scale(1) translate(0, 0); opacity: 1; }
+      100% { transform: scale(0) translate(var(--x), var(--y)); opacity: 0; }
     }
   </style>
 </head>
@@ -59,12 +75,31 @@
       <img src="https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExcDMyemh4cmRudmliaDVjNmtwdjh1Z2FnMmI3aG5seGU0NThkY2hjNCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/SJsflFD5WDKzVJpcqZ/giphy.gif" alt="Animated Birthday Cake with Candles" />
     </div>
   </div>
-
   <h1>Happy Birthday Achu <span class="heart">&#10084;&#65039;</span></h1>
   <div class="message">
-    Wishing you a day filled with laughter, joy, and sweet moments that turn into unforgettable memories.<br>
-    May this year bring you everything you’ve been dreaming of — happiness and success.<br><br>
-    You deserve nothing but the best. Celebrate big and always keep smiling as you always do.
+    Wishing you a day filled with laughter, joy and sweet moments that turn into unforgettable memories.<br>
+    May this year bring you everything you’ve been dreaming of happiness and success.<br><br>
+    You deserve nothing but the best. Celebrate big and always keep smiling as you always do....
   </div>
+
+  <!-- Fireworks JS Script -->
+  <script>
+    function createFirework() {
+      for (let i = 0; i < 10; i++) {
+        const firework = document.createElement('div');
+        firework.className = 'firework';
+        const size = Math.random() * 10 + 5;
+        firework.style.width = `${size}px`;
+        firework.style.height = `${size}px`;
+        firework.style.left = `${Math.random() * 100}vw`;
+        firework.style.top = `${Math.random() * 100}vh`;
+        firework.style.setProperty('--x', `${(Math.random() - 0.5) * 200}px`);
+        firework.style.setProperty('--y', `${(Math.random() - 0.5) * 200}px`);
+        document.body.appendChild(firework);
+        setTimeout(() => firework.remove(), 1000);
+      }
+    }
+    setInterval(createFirework, 300);
+  </script>
 </body>
 </html>
